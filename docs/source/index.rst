@@ -14,12 +14,11 @@ This library aims to implement and solve compartment-based models for the
 Pharmacokinetics of the drug under review.
 
 .. automodule:: pkmodel
+
+.. autoclass:: Model
    :members:
 
-.. automodule:: Model
-   :members:
-
-.. automodule:: Protocol
+.. autoclass:: Protocol
    :members:
 
 .. autoclass:: Solution
