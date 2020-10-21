@@ -1,4 +1,4 @@
-![Python package](https://github.com/SABS-R3-Epidemiology/pkmodelling-g3/workflows/Python%20package/badge.svg)
+
 
 # Pharmacokinetics Modelling and Drug Delivery Research
 
