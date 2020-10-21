@@ -16,10 +16,10 @@ Pharmacokinetics of the drug under review.
 .. automodule:: pkmodel
    :members:
 
-.. autoclass:: model
+.. automodule:: model
    :members:
 
-.. autoclass:: protocol
+.. automodule:: protocol
    :members:
 
 .. autoclass:: solution
