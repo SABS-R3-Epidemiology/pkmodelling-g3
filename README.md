@@ -1,4 +1,4 @@
-
+![Run Unit Tests](https://github.com/SABS-R3-Epidemiology/pkmodelling-g3/workflows/Run%20Unit%20Tests/badge.svg)
 
 # Pharmacokinetics Modelling and Drug Delivery Research
 
