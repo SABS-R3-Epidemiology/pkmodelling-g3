@@ -1,6 +1,7 @@
 ![Run on multiple OS](https://github.com/SABS-R3-Epidemiology/pkmodelling-g3/workflows/Run%20on%20multiple%20OS/badge.svg)
 ![Run Unit Tests](https://github.com/SABS-R3-Epidemiology/pkmodelling-g3/workflows/Run%20Unit%20Tests/badge.svg)
 [![codecov](https://codecov.io/gh/SABS-R3-Epidemiology/pkmodelling-g3/branch/Package-yml/graph/badge.svg?token=AP7BXN01RK)](undefined)
+[![BCH compliance](https://bettercodehub.com/edge/badge/SABS-R3-Epidemiology/pkmodelling-g3?branch=master)](https://bettercodehub.com/)
 
 # Pharmacokinetics Modelling and Drug Delivery Research
 
