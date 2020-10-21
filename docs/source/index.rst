@@ -9,12 +9,20 @@ Welcome to SABS Mini-Project Group 3 Epidemiology Modelling -- Pharmacokinetics 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
-   pkmodel
 
 This library aims to implement and solve compartment-based models for the
 Pharmacokinetics of the drug under review.
 
 .. automodule:: pkmodel
+   :members:
+
+.. autoclass:: model
+   :members:
+
+.. autoclass:: protocol
+   :members:
+
+.. autoclass:: solution
    :members:
 
 Indices and tables
