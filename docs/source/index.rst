@@ -17,13 +17,13 @@ Pharmacokinetics of the drug under review.
    :members:
 
 .. automodule:: model
-   :members: model
+   :members: Model
 
 .. automodule:: protocol
-   :members: protocol
+   :members: Protocol
 
 .. autoclass:: solution
-   :members: solution
+   :members: Solution
 
 Indices and tables
 ==================
