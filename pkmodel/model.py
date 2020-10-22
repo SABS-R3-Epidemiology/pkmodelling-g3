@@ -46,4 +46,3 @@ class Model:
         CL, V_c, V_p, Q_p, Number of peripheral compartments.
         """
         return self.CL, self.V_C, self.V_P, self.Q_P, self.num_periph
-
