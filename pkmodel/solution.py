@@ -1,7 +1,6 @@
 #
 # Solution class
 #
-import scipy.integrate
 class Solution:
     """A Pharmokinetic (PK) model solution
 
@@ -17,8 +16,10 @@ class Solution:
         self.model, self.protocol, self.T = model, protocol, T
 
     # Solve the system of ODEs
+    @property
     def solve(self):
-    
+        """Solves the system of ODEs created by the protocol and model.
+        """
         # Build up the system of ODEs
         if self.model.dosing_type == "intravenous":
         
@@ -43,7 +44,7 @@ class Solution:
         
             Q, V = sel.model.Q, self.model.V
         
-            sol = scipy.integrate.solve_ivp(lambda t, q: f(t, q, Q, V), t_span, q_init)
+            sol = solve_ivp(lambda t, q: f(t, q, Q, V), t_span, q_init)
         
             return sol
         
@@ -74,7 +75,7 @@ class Solution:
         
             Q, V = sel.model.Q, self.model.V
         
-            sol = scipy.integrate.solve_ivp(lambda t, q: f(t, q, Q, V), t_span, q_init)
+            sol = solve_ivp(lambda t, q: f(t, q, Q, V), t_span, q_init)
         
             return sol
                 
