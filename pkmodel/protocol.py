@@ -25,9 +25,6 @@ class Protocol:
         if self.dosing_type == 'subcutaneous':
             self.absorption_rate = absorption_rate
 
-    # def __call__(self):
-    #     return [dose_function,subcutaneous_compartment]
-
     def dose_function(self):
         """ Construct the Dose(t) function for the PK model
 
@@ -52,7 +49,3 @@ class Protocol:
 
         return [dose_function,subcutaneous_compartment]
 
-
-if __name__ == '__main__':
-    protocol = Protocol(4,[2],'instantaneous','intravenous',0)
-    print(protocol.dose_function())
