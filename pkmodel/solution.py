@@ -16,8 +16,8 @@ class Solution:
     num_t: The computed solution is stored at num_t evenly spaced times in the interval [0, T]
 
     """
-    def __init__(self, model, protocol, T, num):
-        self.model, self.protocol, self.T = model, protocol, T
+    def __init__(self, model, protocol, T, num_T):
+        self.model, self.protocol, self.T, self.num_T = model, protocol, T, num_T
 
     # Solve the system of ODEs
     @property
@@ -50,7 +50,7 @@ class Solution:
             Q = self.model.Q_P
             V = self.model.V_P.append(V_C)
         
-            sol = solve_ivp(lambda t, q: f(t, q, Q, V), t_span, q_init, t_eval = np.linspace(0, T, num = num_t))
+            sol = solve_ivp(lambda t, q: f(t, q, Q, V), t_span, q_init, t_eval = np.linspace(0, self.T, num = self.num_t))
         
             return sol
         
@@ -83,7 +83,7 @@ class Solution:
             Q = self.model.Q_P
             V = self.model.V_P.append(V_C)
         
-            sol = solve_ivp(lambda t, q: f(t, q, Q, V), t_span, q_init, t_eval = np.linspace(0, T, num = num_t))
+            sol = solve_ivp(lambda t, q: f(t, q, Q, V), t_span, q_init, t_eval = np.linspace(0, self.T, num = self.num_t))
         
             return sol
                 
