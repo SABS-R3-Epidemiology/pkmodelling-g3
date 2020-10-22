@@ -28,8 +28,8 @@ class Solution:
                 dydt = []
                 
                 # Differential equations for the peripheral compartments q1, ..., qn
-                for i in [0:self.model.number_of_compartments]:
-                    dydt.append(Q[i]*(q[-1]/V[-1] - q[i]/V[i])
+                for i in range(self.model.num_perph+1):
+                    dydt.append(Q[i]*(q[-1]/V[-1] - q[i]/V[i]))
                 
                 # Differential equation for the central compartment qc
                 # Assuming protocol is the Dose(t) function
@@ -56,8 +56,8 @@ class Solution:
                 
                 # Differential equations for the peripheral compartments q1, ..., qn
                 # Note that the position of qc becomes -2
-                for i in [0:self.model.number_of_compartments]:
-                    dydt.append(Q[i]*(q[-2]/V[-1] - q[i]/V[i])
+                for i in range(self.model.num_perph+1):
+                    dydt.append(Q[i]*(q[-2]/V[-1] - q[i]/V[i]))
                 
                 # Differential equation for the central compartment qc
                 # Assuming protocol is the Dose(t) function

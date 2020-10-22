@@ -47,6 +47,3 @@ class Model:
         """
         return self.CL, self.V_C, self.V_P, self.Q_P, self.num_periph
 
-
-model1 = Model(0,0,[0],[0],1)
-print(model1.parameters)
