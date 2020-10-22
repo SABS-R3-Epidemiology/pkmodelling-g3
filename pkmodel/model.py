@@ -17,7 +17,7 @@ class Model:
     Q_P:         list   transition rates between central and each peripheral compartment (length must be num_periph)
     -----------  -----  --------------------------------------------------------------------------------------------
     """
-    def __init__(self, CL: float, V_C: float, V_P: list, Q_P: list, num_periph: int, name: str):
+    def __init__(self, CL: float, V_C: float, V_P: list, Q_P: list, num_periph: int, name: str = "new_model"):
         """
         Create a model object
         """
@@ -37,3 +37,16 @@ class Model:
         Call model object
         """
         return self.name
+    
+    @property
+    def parameters(self):
+        """
+        Call parameters of model in order:
+
+        CL, V_c, V_p, Q_p, Number of peripheral compartments.
+        """
+        return self.CL, self.V_C, self.V_P, self.Q_P, self.num_periph
+
+
+model1 = Model(0,0,[0],[0],1)
+print(model1.parameters)

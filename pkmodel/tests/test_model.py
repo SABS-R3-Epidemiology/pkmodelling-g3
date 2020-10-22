@@ -10,18 +10,37 @@ class ModelTest(unittest.TestCase):
         """
         Tests Model creation.
         """
-        model = pk.Model()
-        self.assertEqual(model.value, 42)
+        # Creates a viable model
+        model1 = pk.Model(0, 1,[0],[0],1)
+        self.assertEqual(model1.parameters, (0, 1,[0],[0],1))
 
+        # Test wrong dimensions
+        model2 = Model(0,0,[0,0],[0],1)
+        self.assertRaises(model2, ValueError)
 
-model1 = Model(0,0,[0],[0],1, "model1")
-print(model1)
+        model3 = Model(0,0,[0],[0],2)
+        self.assertRaises(model3, ValueError)
 
-model2 = Model(0,0,[0,0],[0],1,"m2")
-print(model2)
+        # Wrong type
+        model4 = Model(0,[0,0],[0],[0],1)
+        self.assertRaises(model4, TypeError)
+        
+        model5 = Model([0],0,[0],[0],1)
+        self.assertRaises(model5, TypeError)
 
-model3 = Model(0,0,[0],[0],2, "m3")
-print(model3)
+        model6 = Model(0,0,[0],[0],[1])
+        self.assertRaises(model6, TypeError)
 
-model4 = Model(0,[0,0],[0],[0],1, "m4")
-print(model4)
+    def test_call(self):
+        """
+        Tests Model calling function.
+        """
+        model = pk.Model(0, 1,[0],[0],1)
+        self.assertEqual(model, "new_model")
+
+    def test_parameters(self):
+        """
+        Tests Model Parameter calling function.
+        """
+        model = pk.Model(0, 1,[0],[0],1)
+        self.assertEqual(model.parameters, (0, 1,[0],[0],1))       
