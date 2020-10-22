@@ -10,6 +10,7 @@ individually and in comparision.
 from pkmodel import Protocol, Model, Solution
 import matplotlib.pylab as plt
 import numpy as np
+import scipy.integrate
 
 def plot_behaviour_model_with_protocol( model, protocol, t_time = 1000):
     """Plots behaviour over time of one treatment, given the model and the dosing protocol.
@@ -30,10 +31,11 @@ def plot_behaviour_model_with_protocol( model, protocol, t_time = 1000):
     # Time scale on which to plot the behaviour
     t_eval = np.linspace(0, 1, t_time) 
 
-    # Create solution of model and protocol
+    # Create solution of model and protocol to be plotted
     solution = Solution(model, protocol, t_time)
+    sol = scipy.integrate.solution.solve
 
-    fig = plt.figure(figsize=())
+    fig = plt.figure()
     plt.plot(solution.t, solution.y[0, :], label = model + '- q_c')
     for i in range(model.num_periph):
         plt.plot(solution.t, solution.y[i+1, :], label = model + '- q_p'+str(i+1))
