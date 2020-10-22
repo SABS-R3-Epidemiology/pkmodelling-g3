@@ -36,13 +36,15 @@ class Solution:
                 # ??? Sum can be used as below?
                 dydt.append(self.protocol - (q[-1]/V[-1]) * self.model.CL - sum(dydt))
                 return dydt
-        
+            
+            # Solve the system of ODEs for the time span [0, T]
             t_span = (0, T)
         
             # ? Initial conditions
             q_init = [0] * (model.number_of_compartments + 1)
         
-            Q, V = sel.model.Q, self.model.V
+            Q = self.model.Q_P
+            V = self.model.V_P.append(V_C)
         
             sol = solve_ivp(lambda t, q: f(t, q, Q, V), t_span, q_init)
         
@@ -67,13 +69,15 @@ class Solution:
                 dydt.append(self.protocol - self.model.k_a * q[-1])
                 
                 return dydt
-        
+            
+            # Solve the system of ODEs for the time span [0, T]
             t_span = (0, T)
         
             # ? Initial conditions
             q_init = [0] * (model.number_of_compartments + 2)
         
-            Q, V = sel.model.Q, self.model.V
+            Q = self.model.Q_P
+            V = self.model.V_P.append(V_C)
         
             sol = solve_ivp(lambda t, q: f(t, q, Q, V), t_span, q_init)
         
