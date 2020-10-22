@@ -21,14 +21,14 @@ class Solution:
         """Solves the system of ODEs created by the protocol and model.
         """
         # Build up the system of ODEs
-        if self.model.dosing_type == "intravenous":
+        if self.model. == "intravenous":
         
             # Assuming q = [q1, ..., qn, qc], Q = [Q1, ..., Qn], V = [V1, ..., Vn, Vc]
             def f(t, q, Q, V):
                 dydt = []
                 
                 # Differential equations for the peripheral compartments q1, ..., qn
-                for i in range(self.model.num_perph+1):
+                for i in range(self.model.num_perph):
                     dydt.append(Q[i]*(q[-1]/V[-1] - q[i]/V[i]))
                 
                 # Differential equation for the central compartment qc
@@ -56,7 +56,7 @@ class Solution:
                 
                 # Differential equations for the peripheral compartments q1, ..., qn
                 # Note that the position of qc becomes -2
-                for i in range(self.model.num_perph+1):
+                for i in range(self.model.num_perph):
                     dydt.append(Q[i]*(q[-2]/V[-1] - q[i]/V[i]))
                 
                 # Differential equation for the central compartment qc
