@@ -17,7 +17,7 @@ class Model:
     Q_P:         list   transition rates between central and each peripheral compartment (length must be num_periph)
     -----------  -----  --------------------------------------------------------------------------------------------
     """
-    def __init__(self, CL, V_C, V_P, Q_P, num_periph, name=""):
+    def __init__(self, CL: float, V_C: float, V_P: list, Q_P: list, num_periph: int, name: str):
         """
         Create a model object
         """
