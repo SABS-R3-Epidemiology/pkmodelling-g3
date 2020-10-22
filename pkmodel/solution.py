@@ -1,7 +1,7 @@
 #
 # Solution class
 #
-
+import scipy.integrate
 class Solution:
     """A Pharmokinetic (PK) model solution
 
@@ -43,7 +43,7 @@ class Solution:
         
             Q, V = sel.model.Q, self.model.V
         
-            sol = solve_ivp(lambda t, q: f(t, q, Q, V), t_span, q_init)
+            sol = scipy.integrate.solve_ivp(lambda t, q: f(t, q, Q, V), t_span, q_init)
         
             return sol
         
@@ -74,7 +74,7 @@ class Solution:
         
             Q, V = sel.model.Q, self.model.V
         
-            sol = solve_ivp(lambda t, q: f(t, q, Q, V), t_span, q_init)
+            sol = scipy.integrate.solve_ivp(lambda t, q: f(t, q, Q, V), t_span, q_init)
         
             return sol
                 
