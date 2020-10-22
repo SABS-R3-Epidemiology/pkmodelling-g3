@@ -1,6 +1,9 @@
 #
 # Solution class
 #
+
+import numpy as np
+
 class Solution:
     """A Pharmokinetic (PK) model solution
 
@@ -10,9 +13,10 @@ class Solution:
     model: an object in the Model Class
     protocol: an object in the Protocol Class
     T: The system is solved for the time interval [0, T]
+    num_t: The computed solution is stored at num_t evenly spaced times in the interval [0, T]
 
     """
-    def __init__(self, model, protocol, T):
+    def __init__(self, model, protocol, T, num):
         self.model, self.protocol, self.T = model, protocol, T
 
     # Solve the system of ODEs
@@ -46,7 +50,7 @@ class Solution:
             Q = self.model.Q_P
             V = self.model.V_P.append(V_C)
         
-            sol = solve_ivp(lambda t, q: f(t, q, Q, V), t_span, q_init)
+            sol = solve_ivp(lambda t, q: f(t, q, Q, V), t_span, q_init, t_eval = np.linspace(0, T, num = num_t))
         
             return sol
         
@@ -79,7 +83,7 @@ class Solution:
             Q = self.model.Q_P
             V = self.model.V_P.append(V_C)
         
-            sol = solve_ivp(lambda t, q: f(t, q, Q, V), t_span, q_init)
+            sol = solve_ivp(lambda t, q: f(t, q, Q, V), t_span, q_init, t_eval = np.linspace(0, T, num = num_t))
         
             return sol
                 
