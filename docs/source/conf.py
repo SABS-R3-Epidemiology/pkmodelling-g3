@@ -17,8 +17,8 @@ sys.path.insert(0, os.path.abspath('../..'))
 
 # -- Project information -----------------------------------------------------
 
-project = 'SABS Mini-Project Group 3 Epidemiology Modelling -- Pharmacokinetics Modelling'
-copyright = '2020, Ioana Bouros, Farm Hui Jia, Andrew O hEachteirn, Siting Miao'
+project = 'SABS Mini-Project Group 3 Epidemiology Modelling -- Pharmacokinetics Modelling'  # noqa
+copyright = '2020, Ioana Bouros, Farm Hui Jia, Andrew O hEachteirn, Siting Miao'  # noqa
 author = 'Ioana Bouros, Farm Hui Jia, Andrew O hEachteirn, Siting Miao'
 
 # The full version, including alpha/beta/rc tags

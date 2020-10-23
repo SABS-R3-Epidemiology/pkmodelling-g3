@@ -11,7 +11,7 @@ from pkmodel import Solution
 import matplotlib.pylab as plt
 
 
-def plot_behaviour_one_experiment(model, protocol, t_time=1000, num_points=1000):
+def plot_behaviour_one_experiment(model, protocol, t_time=1000, num_points=1000):  # noqa
     """Plots behaviour over time of one treatment,
     given the model and the dosing protocol.
 
@@ -28,7 +28,7 @@ def plot_behaviour_one_experiment(model, protocol, t_time=1000, num_points=1000)
     t_time: integer, optional; total time in hours on which we evaluate
     behaviour of drug
         an example: 1000
-    
+
     num_points: integer, optional; total number of points at which we evaluate
     the behavior
         an example: 1000
@@ -50,7 +50,7 @@ def plot_behaviour_one_experiment(model, protocol, t_time=1000, num_points=1000)
     plt.show()
 
 
-def plot_comparison_experiments(models, protocols, t_time=1000, num_points=1000):
+def plot_comparison_experiments(models, protocols, t_time=1000, num_points=1000):  # noqa
     """Plots comparision graphs over time of two or more treatments,
     given their respective model and the dosing protocol.
 
@@ -73,14 +73,14 @@ def plot_comparison_experiments(models, protocols, t_time=1000, num_points=1000)
     t_time: integer, optional; total time in hours on which we evaluate
     behaviour of drug
         an example: 1000
-    
+
     num_points: integer, optional; total number of points at which we evaluate
     the behavior
         an example: 1000
     """
 
     plt.figure()
-    
+
     for model in models:
         # Create solution of 1st model and protocol to be plotted
         solution = Solution(model, protocols[models.index(model)], t_time, num_points)  # noqa
