@@ -17,7 +17,7 @@ class SolutionTest(unittest.TestCase):
             pk.Solution(0, pk.Protocol('subcutaneous', 'continuous', 7,T=[10]), 1000, 1)  # noqa
 
         with self.assertRaises(TypeError):
-            pk.Solution(pk.Model(0, 1, [0], [0], 1), 0, 1000, 1)
+            pk.Solution(pk.Model(0, 1, [1], [0], 1), 0, 1000, 1)
 
     def test_solve(self):
         """

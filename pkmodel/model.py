@@ -29,6 +29,12 @@ class Model:
         self.V_P = list(V_P)
         self.Q_P = list(Q_P)
 
+        if V_C <= 0:
+            raise ValueError("Volume of central compartment needs to be non-negative")  # noqa
+
+        if any(v <= 0 for v in V_P):
+            raise ValueError("Volume of peripheral compartments need to be non-negative")  # noqa
+
         if num_periph < 0:
             raise ValueError("Number of peripheral compartments needs to be non-negative")  # noqa
 

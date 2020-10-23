@@ -7,7 +7,7 @@ Behaviours represented for one or more dosing protocols are to be plotted
 individually and in comparision.
 ----------------
 """
-from pkmodel import Solution
+from pkmodel import Solution, Model, Protocol  # noqa
 import matplotlib.pylab as plt
 
 
@@ -95,3 +95,5 @@ def plot_comparison_experiments(models, protocols, t_time=1000, num_points=1000)
     plt.ylabel('drug mass [ng]')
     plt.xlabel('time [h]')
     plt.show()
+
+plot_behaviour_one_experiment(Model(0, 1, [1], [0], 1), Protocol('intravenous', 'instantaneous', [5], T=[10]), 10, 10)
