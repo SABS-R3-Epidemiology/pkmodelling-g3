@@ -75,9 +75,9 @@ def plot_comparison_experiments(models, protocols, t_time = 1000):
         solution = Solution(model, protocols[models.index(model)], t_time, t_eval)
         sol = solution.solve
 
-        plt.plot(solution.t, solution.y[0, :], label = str(model) + '- q_c')
+        plt.plot(solution.t, solution.y[0, :], label = str(model) + '- q_c - protocol ' + str())
         for i in range(model.num_periph):
-            plt.plot(solution.t, solution.y[i+1, :], label = str(model) + '- q_p' + str(i+1))
+            plt.plot(solution.t, solution.y[i+1, :], label = str(model) + '- q_p' + str(i+1) + ' - protocol ')
         
     plt.legend()
     plt.ylabel('drug mass [ng]')
