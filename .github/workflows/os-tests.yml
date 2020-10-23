@@ -5,9 +5,9 @@ name: Run on multiple OS
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master, class-wrap-up ]
   pull_request:
-    branches: [ master ]
+    branches: [ master, class-wrap-up ]
 
 jobs:
   build:
