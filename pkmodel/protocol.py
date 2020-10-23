@@ -59,13 +59,11 @@ class Protocol:
     def __call__(self):
         return [self.create_dose_function(),self.create_subcutaneous_comp_function()]
 
-    def bump_fn(t,d,a,s):
+    def bump_fn(t,inject_time,height,sharpness,width):
         """ Smooth step function for the dose function
-
-        d,a,s describes the height, sharpness and width of the function respectively
         
         """
-        return d / [1 + np.exp(a*(t-s))] - d / [1 + np.exp(a*(t-s-1))]
+        return height / [1 + np.exp(sharpness*(t-inject_time))] - height / [1 + np.exp(sharpness*(t-inject_time-width))]
 
     # @property
     def create_dose_function(self):
@@ -76,14 +74,19 @@ class Protocol:
 
         """
         sharpness = 30
+        # Defines the steepness of the step function
+
         self.dose_function = 0
         if self.dosing_pattern == 'instantaneous':
+        
             width = 0.1
-            for i in len(self.T):
-                self.dose_function += bump_fn(dose[i],width,sharpness,self.T[i])
+            # Defines
+
+            for i in range(len(self.T)):
+                self.dose_function += lambda t: self.bump_fn(t,self.T[i],self.dose[i],width,sharpness)
         elif self.dosing_pattern == 'continuous':
             for i in range(int(t_time/60)):
-                self.dose_function += bump_fn(dose,self.dose_period,sharpness,i)
+                self.dose_function += lambda t: self.bump_fn(t,i,self.dose,self.dose_period,sharpness)
 
         return self.dose_function
             
