@@ -27,7 +27,7 @@ class Protocol:
         absorption rate for subcutaneous dosing. If dosing is intravenous, then not defined  # noqa
     """
     def __init__(self, dosing_type, dosing_pattern, dose, T=None, dose_period=None, absorption_rate=None):  # noqa
-        self.dose, self.dosing_pattern, self.dosing_type, self.t_time = dose, dosing_pattern, dosing_type, t_time  # noqa
+        self.dose, self.dosing_pattern, self.dosing_type,= dose, str(dosing_pattern), str(dosing_type),  # noqa
 
         if self.dosing_pattern == 'instantaneous':
             self.T = T
