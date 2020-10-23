@@ -75,7 +75,7 @@ class Protocol:
             """ Smooth step function for the dose function
             
             """
-            return height / (1 + np.exp(sharpness*(t-inject_time))) - height / (1 + np.exp(sharpness*(t-inject_time+width)))
+            return height / (1 + np.exp(-sharpness*(t-inject_time))) - height / (1 + np.exp(-sharpness*(t-inject_time-width)))
 
         sharpness = 30
         # Defines the steepness of the step function
@@ -119,3 +119,4 @@ class Protocol:
             subcutaneous_comp_function = lambda t, q: self.create_dose_function(t)
 
         return subcutaneous_comp_function(t, q)
+
