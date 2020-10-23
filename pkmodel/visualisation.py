@@ -87,6 +87,3 @@ def plot_comparison_experiments(models, protocols, t_time=1000):
     plt.ylabel('drug mass [ng]')
     plt.xlabel('time [h]')
     plt.show()
-
-model = 
-plot_behaviour_one_experiment(model, protocol, 10)
