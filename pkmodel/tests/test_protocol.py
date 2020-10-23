@@ -10,6 +10,8 @@ class ProtocolTest(unittest.TestCase):
         """
         Tests Protocol creation.
         """
-        model = pk.Protocol()
-        self.assertEqual(model.value, 43)
+        protocol = pk.Protocol('intravenous','instantaneous',[5],1000,T=[10])
+        print(protocol())
 
+if __name__ == '__main__':
+    unittest.main()
