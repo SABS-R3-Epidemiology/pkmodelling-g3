@@ -14,7 +14,7 @@ class ProtocolTest(unittest.TestCase):
         protocol = pk.Protocol('intravenous', 'instantaneous', [5],  T=[10])  # noqa
         self.assertAlmostEqual(protocol.create_dose_function(1), 0)
 
-        protocol = pk.Protocol('subcutaneous', 'continuous', 7, T=[10])
+        protocol = pk.Protocol('subcutaneous', 'continuous', 7, T=[10], absorption_rate=0.7)  # noqa
         self.assertAlmostEqual(protocol.create_dose_function(4), 7)
 
     def test_subcutaneous_comp_function(self):
