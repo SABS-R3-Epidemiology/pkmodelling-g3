@@ -21,13 +21,16 @@ class Model:
         """
         Create a model object
         """
-        self.name = name
-        self.V_C = V_C
-        self.CL = CL
+        self.name = str(name)
+        self.V_C = float(V_C)
+        self.CL = float(CL)
 
-        self.num_periph = num_periph
-        self.V_P = V_P
-        self.Q_P = Q_P
+        self.num_periph = int(num_periph)
+        self.V_P = list(V_P)
+        self.Q_P = list(Q_P)
+
+        if num_periph < 0:
+            raise ValueError("Number of peripheral compartments needs to be non-negative")  # noqa
 
         if len(V_P) != num_periph or len(Q_P) != num_periph:
             raise ValueError("V_P and Q_P must be vectors of length num_periph")  # noqa

@@ -21,6 +21,9 @@ class ModelTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             pk.Model(0, 0, [0], [0], 2)
 
+        with self.assertRaises(ValueError):
+            pk.Model(0, 0, [0], [0], -1)
+
     def test_call(self):
         """
         Tests Model calling function.
