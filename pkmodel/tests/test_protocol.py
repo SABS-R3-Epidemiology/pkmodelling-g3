@@ -35,7 +35,6 @@ class ProtocolTest(unittest.TestCase):
             # check if error is raised when dose is not list
             # for instantaneous case
             pk.Protocol('subcutaneous', 'instantaneous', 3)
-
         with self.assertRaises(TypeError):
             # check if error is raised when injection time is not list
             # for instantaneous case
