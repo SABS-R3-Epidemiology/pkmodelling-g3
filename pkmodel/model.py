@@ -8,7 +8,7 @@ class Model:
     """A Pharmokinetic (PK) model
 
     Parameter    Type   Description
-    -----------  -----  --------------------------------------------------------------------------------------------
+    -----------  -----  --------------------------------------------------------------------------------------------  # noqa
     name:        str    name of the model (optional)
     V_C:         float  volume of central compartment
     CL:          float  clearance/removal rate from central compartment
@@ -17,7 +17,7 @@ class Model:
     Q_P:         list   transition rates between central and each peripheral compartment (length must be num_periph)
     -----------  -----  --------------------------------------------------------------------------------------------
     """
-    def __init__(self, CL: float, V_C: float, V_P: list, Q_P: list, num_periph: int, name: str = "new_model"):
+    def __init__(self, CL: float, V_C: float, V_P: list, Q_P: list, num_periph: int, name: str = "new_model"):  # noqa
         """
         Create a model object
         """
@@ -30,14 +30,14 @@ class Model:
         self.Q_P = Q_P
 
         if len(V_P) != num_periph or len(Q_P) != num_periph:
-            raise ValueError("V_P and Q_P must be vectors of length num_periph.")
+            raise ValueError("V_P and Q_P must be vectors of length num_periph")  # noqa
 
     def __str__(self):
         """
         Call model object
         """
         return self.name
-    
+
     @property
     def parameters(self):
         """

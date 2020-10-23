@@ -37,9 +37,9 @@ def plot_behaviour_one_experiment(model, protocol, t_time=1000):
     sol = solution.solve
 
     plt.figure()
-    plt.plot(sol.t, sol.y[0, :], label=str(model) + '-q_c')
+    plt.plot(sol.t, sol.y[0, :], label=str(model) + ' - q_c')  # noqa
     for i in range(model.num_periph):
-        plt.plot(sol.t, sol.y[i + 1, :], label=str(model) + '-q_p' + str(i + 1))
+        plt.plot(sol.t, sol.y[i + 1, :], label=str(model) + ' - q_p' + str(i + 1))  # noqa
 
     plt.legend()
     plt.ylabel('drug mass [ng]')
@@ -76,12 +76,12 @@ def plot_comparison_experiments(models, protocols, t_time=1000):
 
     for model in models:
         # Create solution of 1st model and protocol to be plotted
-        solution = Solution(model, protocols[models.index(model)], t_time, t_eval)
+        solution = Solution(model, protocols[models.index(model)], t_time, t_eval)  # noqa
         sol = solution.solve
 
-        plt.plot(sol.t, sol.y[0, :], label=str(model) + '-q_c')
+        plt.plot(sol.t, sol.y[0, :], label=str(model) + ' - q_c')
         for i in range(model.num_periph):
-            plt.plot(sol.t, sol.y[i + 1, :], label=str(model) + '-q_p' + str(i + 1))
+            plt.plot(sol.t, sol.y[i + 1, :], label=str(model) + ' - q_p' + str(i + 1)) # noqa
 
     plt.legend()
     plt.ylabel('drug mass [ng]')
