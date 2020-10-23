@@ -34,15 +34,15 @@ class ProtocolTest(unittest.TestCase):
         with self.assertRaises(TypeError):
             # check if error is raised when dose is not list
             # for instantaneous case
-            pk.Protocol('subcutaneous','instantaneous',3)
-        
+            pk.Protocol('subcutaneous', 'instantaneous', 3)
+
         with self.assertRaises(TypeError):
             # check if error is raised when injection time is not list
             # for instantaneous case
-            pk.Protocol('subcutaneous','instantaneous',[2],T=3)
+            pk.Protocol('subcutaneous', 'instantaneous', [2], T=3)
 
         with self.assertRaises(ValueError):
-            # check if error is raised when length of dose list is equal to length of injection time
+            # check if error is raised when length of dose list is equal to length of injection time  # noqa
             # for instantaneous case
             pk.Protocol('intravenous', 'instantaneous', [2, 5], T=[10])
 
@@ -50,9 +50,9 @@ class ProtocolTest(unittest.TestCase):
             # check if error is raised when dose is not float or integer
             # for continuous case
             pk.Protocol('intravenous', 'continuous', [2])
-        
+
         with self.assertRaises(KeyError):
-            # check if error is raised when the dosing pattern is spelled wrongly
+            # check if error is raised when the dosing pattern is spelled wrongly  # noqa
             pk.Protocol('subcutaneous', 'instataneous', [2])
 
         with self.assertRaises(KeyError):
