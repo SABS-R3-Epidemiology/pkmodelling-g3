@@ -37,3 +37,6 @@ class ProtocolTest(unittest.TestCase):
 
         with self.assertRaises(TypeError):
             pk.Protocol('intravenous','continuous',[2],1000)
+
+        with self.assertRaises(KeyError):
+            pk.Protocol('intravanous','continuous',2,1000)
