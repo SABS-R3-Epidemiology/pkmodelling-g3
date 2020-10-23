@@ -5,9 +5,9 @@ name: Coverage
 
 on:
   push:
-    branches: [ master, class-wrap-up ]
+    branches: [ master ]
   pull_request:
-    branches: [ master, class-wrap-up ]
+    branches: [ master ]
 
 jobs:
   build:
