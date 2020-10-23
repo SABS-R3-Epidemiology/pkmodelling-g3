@@ -19,26 +19,31 @@ class Protocol:
     T: list
         the time points when the drug is given
         only for instantaneous dosing
+    dose_period: numeric
+        the time period for continuous dosing
+        only for continuous dosing
     absorption_rate: numeric
         absorption rate for subcutaneous dosing. If dosing is intravenous, then not defined
     """
-    def __init__(self, dosing_type, dosing_pattern, dose, T = None, absorption_rate = None):
-        self.dose, self.dosing_pattern, self.dosing_type = dose, dosing_pattern, dosing_type
+    def __init__(self, dosing_type, dosing_pattern, dose, t_time, T = None, dose_period = None, absorption_rate = None):
+        self.dose, self.dosing_pattern, self.dosing_type, self.t_time = dose, dosing_pattern, dosing_type, self.t_time
         
         if self.dosing_pattern == 'instanteneous':
             self.T = T
+            self.dose_period = None
 
             if len(T) != len(dose):
                 raise ValueError('Times and dose shots out of sync')
             if type(dose) != list:
-                raise TypeError('Not correct format for dose')
+                raise TypeError('Not correct format for dose, please use list')
             if type(T) != list:
-                raise TypeError('Not correct format for dosing times')
+                raise TypeError('Not correct format for dosing times, please use list')
 
         elif self.dosing_pattern == 'continuous':
             self.T = None
+            self.dose_period = dose_period
             if type(dose) != float:
-                raise TypeError('Not correct format for dose')
+                raise TypeError('Not correct format for dose, please use float')
 
         else:
             raise KeyError('Not correct dosing pattern')
@@ -48,7 +53,13 @@ class Protocol:
         elif self.dosing_type == 'intravenous':
             self.absorption_rate = None
         else:
-            raise KeyError('Not correct dosing type')
+            raise KeyError('Not correct dosing type, either intravenous or subcutaneous')
+
+    def __call__(self):
+        return [self.dose_function,self.subcutaneous_comp_function]
+
+    def bump_fn(d,t,a,s):
+        return d / [1 + np.exp(a*(t-s))] - d / [1 + np.exp(a*(t-s-1))]
 
     @property
     def dose_function(self):
@@ -58,16 +69,18 @@ class Protocol:
         Makes use of dosing pattern, dosing time and dosing type.
 
         """
-        injection_function = []
+        sharpness = 30
+        self.dose_function = 0
         if self.dosing_pattern == 'instantaneous':
-            sigma = 0.1
-            for time in self.T:
-                injection_function.append(np.exp(-np.power(t-time,2)/(2*np.power(sigma,2))))
+            width = 0.1
+            for i in len(T):
+                self.dose_function += bump_fn(dose[i],width,sharpness,T[i])
         elif self.dosing_pattern == 'continuous':
-            for time in self.T:
-                injection_function.append()
+            for i in range(int(t_time/60)):
+                self.dose_function += bump_fn(dose,self.dose_period,sharpness,i)
+
+        return self.dose_function
             
-        dose_function = sum(injection_function)
 
     @property
     def subcutaneous_comp_function(self):
@@ -78,9 +91,9 @@ class Protocol:
 
         """
         if self.dosing_type == 'subcutaneous':
-            subcutaneous_comp_function = lambda t: self.absorption_rate*q0
+            self.subcutaneous_comp_function = lambda t: self.absorption_rate*q0
         elif self.dosing_type == 'intravenous':
-            subcutaneous_comp_function = dose_function
+            self.subcutaneous_comp_function = self.dose_function
 
-        return [dose_function,subcutaneous_comp_function]
+        return self.subcutaneous_comp_function
 
