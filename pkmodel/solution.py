@@ -3,6 +3,7 @@
 #
 
 import numpy as np
+from pkmodel import Model, Protocol
 
 class Solution:
     """A Pharmokinetic (PK) model solution
@@ -18,6 +19,10 @@ class Solution:
     """
     def __init__(self, model, protocol, T, num_T):
         self.model, self.protocol, self.T, self.num_T = model, protocol, T, num_T
+        if not isinstance(model, Model):
+            raise TypeError('Not correct type for model, please use Model class')
+        if  not isinstance(protocol, Protocol):
+            raise TypeError('Not correct type for protocol, please use Protocol class')
 
     # Solve the system of ODEs
     @property
