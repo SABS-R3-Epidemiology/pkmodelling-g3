@@ -25,7 +25,7 @@ class Protocol:
     absorption_rate: numeric
         absorption rate for subcutaneous dosing. If dosing is intravenous, then not defined
     """
-    def __init__(self, dosing_type, dosing_pattern, dose, t_time, T = None, dose_period = None, absorption_rate = None):
+    def __init__(self, dosing_type, dosing_pattern, dose, T = None, dose_period = None, absorption_rate = None):
         self.dose, self.dosing_pattern, self.dosing_type, self.t_time = dose, dosing_pattern, dosing_type, t_time
         
         if self.dosing_pattern == 'instantaneous':
