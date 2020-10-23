@@ -21,41 +21,7 @@ def plot_behaviour_one_experiment( model, protocol, t_time = 1000):
 
     protocol: Protocol class object; the dosing protocol under which the drug 
     is administered to the patient. 
-        an example: Protocol()
-    
-    t_time: integer, optional; total time in hours on which we evaluate behaviour of drug
-        an example: 1000
-    """
-    # Time scale on which to plot the behaviour
-    t_eval = np.linspace(0, 1, t_time) 
-
-    # Create solution of model and protocol to be plotted
-    solution = Solution(model, protocol, t_time)
-    sol = solution.solve
-
-    fig = plt.figure()
-    plt.plot(solution.t, solution.y[0, :], label = model + '- q_c')
-    for i in range(model.num_periph):
-        plt.plot(solution.t, solution.y[i+1, :], label = model + '- q_p'+str(i+1))
-    
-    plt.legend()
-    plt.ylabel('drug mass [ng]')
-    plt.xlabel('time [h]')
-    plt.show()
-        
-def plot_comparison_two_experiments(models, protocols, t_time = 1000):
-    """Plots comparision graphs over time of two treatments,
-    given their respective model and the dosing protocol.
-
-    Parameters
-    ----------
-    models: list of Model class object; the compartment-based models of the system on which
-    the drug is administered in orderof plotting
-        an example: [Model(0, 1,[0],[0],1, 'my_model1'), Model()]
-
-    protocol: Protocol class object; the dosing protocols under which the drug 
-    is administered to the patient for each model chosen. 
-        an example: [Protocol(), Protocol()]
+        an example: Protocol('intravenous','instantaneous',[5],1000,T=[10])
     
     t_time: integer, optional; total time in hours on which we evaluate behaviour of drug
         an example: 1000
@@ -68,10 +34,51 @@ def plot_comparison_two_experiments(models, protocols, t_time = 1000):
     sol = solution.solve
 
     fig = plt.figure()
-    plt.plot(solution.t, solution.y[0, :], label = model + '- q_c')
+    plt.plot(sol.t, sol.y[0, :], label = str(model) + ' - q_c')
     for i in range(model.num_periph):
-        plt.plot(solution.t, solution.y[i+1, :], label = model + '- q_p' + str(i+1))
+        plt.plot(sol.t, sol.y[i+1, :], label = str(model) + '- q_p'+str(i+1))
     
+    plt.legend()
+    plt.ylabel('drug mass [ng]')
+    plt.xlabel('time [h]')
+    plt.show()
+        
+def plot_comparison_experiments(models, protocols, t_time = 1000):
+    """Plots comparision graphs over time of two or more treatments,
+    given their respective model and the dosing protocol.
+
+    Parameters
+    ----------
+    models: list of Model class object; the compartment-based models of the system on which
+    the drug is administered in orderof plotting
+        an example:[
+                    Model(0, 1,[0],[0],1, 'my_model'), 
+                    Model(0, 1,[0],[0],1, 'my_model')
+                    ]
+
+    protocol: Protocol class object; the dosing protocols under which the drug 
+    is administered to the patient for each model chosen. 
+        an example:[
+                    Protocol('intravenous','instantaneous',[5],1000,T=[10]), 
+                    Protocol('intravenous','instantaneous',[5.5],1000,T=[10])
+                    ]
+    
+    t_time: integer, optional; total time in hours on which we evaluate behaviour of drug
+        an example: 1000
+    """
+    # Time scale on which to plot the behaviour
+    t_eval = np.linspace(0, 1, t_time) 
+
+    fig = plt.figure()
+    for model in models:
+        # Create solution of 1st model and protocol to be plotted
+        solution = Solution(model, protocols[models.index(model)], t_time, t_eval)
+        sol = solution.solve
+
+        plt.plot(solution.t, solution.y[0, :], label = str(model) + '- q_c')
+        for i in range(model.num_periph):
+            plt.plot(solution.t, solution.y[i+1, :], label = str(model) + '- q_p' + str(i+1))
+        
     plt.legend()
     plt.ylabel('drug mass [ng]')
     plt.xlabel('time [h]')
