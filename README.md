@@ -34,5 +34,7 @@ The drug may be introduced to the system in different ways; we consider two such
 
 ![alt text](https://github.com/[ao20]/pkmodelling-g3/model_schematic.png?raw=true "Title")
 
+![Screenshot](model_schematic.png)
+
 In seeking to achieve a certain drug cincentration in the system's compartments (the central compartment, in particular), a doctor adopts a dosing protocol, that is, he/she introduces the drug to the system (as described in the previous paragraph), following a prespecified pattern over a given time period. For example, the doctor might add the drug at a constant rate throughout the period (which we call a continuous protocol); alternatively, he/she might administer the drug in a short burst or several bursts, separated by pauses (which we call an instantaneous protocol). The dosing protocol is codified in a function Dose(t), e.g. Dose(t) = constant > 0 for a continuous protocol.
 
