@@ -8,7 +8,7 @@ class Model:
     """A Pharmokinetic (PK) model
 
     Parameter    Type   Description
-    -----------  -----  --------------------------------------------------------------------------------------------
+    -----------  -----  --------------------------------------------------------------------------------------------  # noqa
     name:        str    name of the model (optional)
     V_C:         float  volume of central compartment
     CL:          float  clearance/removal rate from central compartment
@@ -17,27 +17,30 @@ class Model:
     Q_P:         list   transition rates between central and each peripheral compartment (length must be num_periph)
     -----------  -----  --------------------------------------------------------------------------------------------
     """
-    def __init__(self, CL: float, V_C: float, V_P: list, Q_P: list, num_periph: int, name: str = "new_model"):
+    def __init__(self, CL: float, V_C: float, V_P: list, Q_P: list, num_periph: int, name: str = "new_model"):  # noqa
         """
         Create a model object
         """
-        self.name = name
-        self.V_C = V_C
-        self.CL = CL
+        self.name = str(name)
+        self.V_C = float(V_C)
+        self.CL = float(CL)
 
-        self.num_periph = num_periph
-        self.V_P = V_P
-        self.Q_P = Q_P
+        self.num_periph = int(num_periph)
+        self.V_P = list(V_P)
+        self.Q_P = list(Q_P)
+
+        if num_periph < 0:
+            raise ValueError("Number of peripheral compartments needs to be non-negative")  # noqa
 
         if len(V_P) != num_periph or len(Q_P) != num_periph:
-            raise ValueError("V_P and Q_P must be vectors of length num_periph.")
+            raise ValueError("V_P and Q_P must be vectors of length num_periph")  # noqa
 
     def __str__(self):
         """
         Call model object
         """
         return self.name
-    
+
     @property
     def parameters(self):
         """
