@@ -25,7 +25,7 @@ class Solution:
         """Solves the system of ODEs created by the protocol and model.
         """
         # Build up the system of ODEs
-        if self.model. == "intravenous":
+        if self.model.dosing_type == "intravenous":
         
             # Assuming q = [q1, ..., qn, qc], Q = [Q1, ..., Qn], V = [V1, ..., Vn, Vc]
             def f(t, q, Q, V):
