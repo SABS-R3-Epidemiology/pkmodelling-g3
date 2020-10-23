@@ -11,7 +11,7 @@ from pkmodel import Solution
 import matplotlib.pylab as plt
 
 
-def plot_behaviour_one_experiment(model, protocol, t_time=1000):
+def plot_behaviour_one_experiment(model, protocol, t_time=1000, num_points=1000):
     """Plots behaviour over time of one treatment,
     given the model and the dosing protocol.
 
@@ -28,18 +28,21 @@ def plot_behaviour_one_experiment(model, protocol, t_time=1000):
     t_time: integer, optional; total time in hours on which we evaluate
     behaviour of drug
         an example: 1000
+    
+    num_points: integer, optional; total number of points at which we evaluate
+    the behavior
+        an example: 1000
     """
-    # Time scale on which to plot the behaviour
-    t_eval = np.linspace(0, 1, t_time)
 
     # Create solution of model and protocol to be plotted
-    solution = Solution(model, protocol, t_time, t_eval)
+    solution = Solution(model, protocol, t_time, num_points)
     sol = solution.solve
 
     plt.figure()
-    plt.plot(sol.t, sol.y[0, :], label=str(model) + ' - q_c')  # noqa
+    plt.plot(sol.t, sol.y[-1, :], label=str(model) + ' - q_0')  # noqa
+    plt.plot(sol.t, sol.y[-2, :], label=str(model) + ' - q_c')  # noqa
     for i in range(model.num_periph):
-        plt.plot(sol.t, sol.y[i + 1, :], label=str(model) + ' - q_p' + str(i + 1))  # noqa
+        plt.plot(sol.t, sol.y[i, :], label=str(model) + ' - q_p' + str(i + 1))  # noqa
 
     plt.legend()
     plt.ylabel('drug mass [ng]')
@@ -47,7 +50,7 @@ def plot_behaviour_one_experiment(model, protocol, t_time=1000):
     plt.show()
 
 
-def plot_comparison_experiments(models, protocols, t_time=1000):
+def plot_comparison_experiments(models, protocols, t_time=1000, num_points=1000):
     """Plots comparision graphs over time of two or more treatments,
     given their respective model and the dosing protocol.
 
@@ -70,18 +73,23 @@ def plot_comparison_experiments(models, protocols, t_time=1000):
     t_time: integer, optional; total time in hours on which we evaluate
     behaviour of drug
         an example: 1000
+    
+    num_points: integer, optional; total number of points at which we evaluate
+    the behavior
+        an example: 1000
     """
-    # Time scale on which to plot the behaviour
-    t_eval = np.linspace(0, 1, t_time)
 
+    plt.figure()
+    
     for model in models:
         # Create solution of 1st model and protocol to be plotted
-        solution = Solution(model, protocols[models.index(model)], t_time, t_eval)  # noqa
+        solution = Solution(model, protocols[models.index(model)], t_time, num_points)  # noqa
         sol = solution.solve
 
-        plt.plot(sol.t, sol.y[0, :], label=str(model) + ' - q_c')
+        plt.plot(sol.t, sol.y[-1, :], label=str(model) + ' - q_0')  # noqa
+        plt.plot(sol.t, sol.y[-2, :], label=str(model) + ' - q_c')  # noqa
         for i in range(model.num_periph):
-            plt.plot(sol.t, sol.y[i + 1, :], label=str(model) + ' - q_p' + str(i + 1)) # noqa
+            plt.plot(sol.t, sol.y[i, :], label=str(model) + ' - q_p' + str(i + 1)) # noqa
 
     plt.legend()
     plt.ylabel('drug mass [ng]')
