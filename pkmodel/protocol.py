@@ -26,18 +26,19 @@ class Protocol:
         absorption rate for subcutaneous dosing. If dosing is intravenous, then not defined
     """
     def __init__(self, dosing_type, dosing_pattern, dose, t_time, T = None, dose_period = None, absorption_rate = None):
-        self.dose, self.dosing_pattern, self.dosing_type, self.t_time = dose, dosing_pattern, dosing_type, self.t_time
+        self.dose, self.dosing_pattern, self.dosing_type, self.t_time = dose, dosing_pattern, dosing_type, t_time
         
-        if self.dosing_pattern == 'instanteneous':
+        if self.dosing_pattern == 'instantaneous':
             self.T = T
             self.dose_period = None
 
-            if len(T) != len(dose):
-                raise ValueError('Times and dose shots out of sync')
             if type(dose) != list:
                 raise TypeError('Not correct format for dose, please use list')
             if type(T) != list:
                 raise TypeError('Not correct format for dosing times, please use list')
+            if len(T) != len(dose):
+                raise ValueError('Times and dose shots out of sync')
+            
 
         elif self.dosing_pattern == 'continuous':
             self.T = None
@@ -56,7 +57,7 @@ class Protocol:
             raise KeyError('Not correct dosing type, either intravenous or subcutaneous')
 
     def __call__(self):
-        return [self.dose_function,self.subcutaneous_comp_function]
+        return [self.create_dose_function(),self.create_subcutaneous_comp_function()]
 
     def bump_fn(t,d,a,s):
         """ Smooth step function for the dose function
@@ -66,8 +67,8 @@ class Protocol:
         """
         return d / [1 + np.exp(a*(t-s))] - d / [1 + np.exp(a*(t-s-1))]
 
-    @property
-    def dose_function(self):
+    # @property
+    def create_dose_function(self):
         """ Construct the Dose(t) function for the PK model
 
         Create a function that models the way in which the drug enters the system.
@@ -78,8 +79,8 @@ class Protocol:
         self.dose_function = 0
         if self.dosing_pattern == 'instantaneous':
             width = 0.1
-            for i in len(T):
-                self.dose_function += bump_fn(dose[i],width,sharpness,T[i])
+            for i in len(self.T):
+                self.dose_function += bump_fn(dose[i],width,sharpness,self.T[i])
         elif self.dosing_pattern == 'continuous':
             for i in range(int(t_time/60)):
                 self.dose_function += bump_fn(dose,self.dose_period,sharpness,i)
@@ -87,8 +88,8 @@ class Protocol:
         return self.dose_function
             
 
-    @property
-    def subcutaneous_comp_function(self):
+    # @property
+    def create_subcutaneous_comp_function(self):
         """ Construct the Dose(t) function for the PK model
 
         Create a function that models the way in which the drug enters the system.
