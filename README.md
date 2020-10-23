@@ -26,3 +26,13 @@ Each such model is uniquely characterised by parameters entirely dependent on th
 
 Following this methodology proves to be essential in the development of new treatments, to ensure a sufficient quantity of the active substance is administered to the subject for the medicine to be effective.
 
+# The mathematical model
+
+The model comprises a system of ordinary differential equations (ODEs) that codify the flow of a drug into, through and between a system of compartments. The compartment of greatest interest to us will be the central compartment, denoted by q_c. This central compartment may be connected with one or more peripheral compartments, denoted by q_p1, ..., q_pn. For ease of exposition, we abuse this notation by denoting the drug concentration in each compartment by the compartment name. We seek to solve numerically the resulting ODE system for said concentrations, q_c, q_p1, ..., q_pn.
+
+The drug may be introduced to the system in different ways; we consider two such dosing types, namely intravenous and subcutaneous dosing types. In the intravanous case, the drug is introduced directly into the central compartment, whereas in the subcutaneous case, the drug enters an initial compartment before being admitted to the central compartment. We denote this initial compartment in the latter case by q_0.
+
+![alt text](https://github.com/[ao20]/pkmodelling-g3/Screen Shot 2020-10-23 at 15.25.56.png)
+
+In seeking to achieve a certain drug cincentration in the system's compartments (the central compartment, in particular), a doctor adopts a dosing protocol, that is, he/she introduces the drug to the system (as described in the previous paragraph), following a prespecified pattern over a given time period. For example, the doctor might add the drug at a constant rate throughout the period (which we call a continuous protocol); alternatively, he/she might administer the drug in a short burst or several bursts, separated by pauses (which we call an instantaneous protocol). The dosing protocol is codified in a function Dose(t), e.g. Dose(t) = constant > 0 for a continuous protocol.
+
