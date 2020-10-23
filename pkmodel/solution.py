@@ -39,7 +39,7 @@ class Solution:
 
             # Differential equations for the peripheral compartments q1, ..., qn  # noqa
             # Note that the position of qc is -2
-            for i in range(self.model.num_perph):
+            for i in range(self.model.num_periph):
                 dydt.append(Q[i] * (q[-2] / V[-1] - q[i] / V[i]))
 
             # Differential equation for the central compartment qc
@@ -51,14 +51,15 @@ class Solution:
             return dydt
 
         # Solve the system of ODEs for the time span [0, T]
-        t_span = (0, T)
+        t_span = (0, self.T)
 
         # Initial conditions
-        q_init = [0] * (model.number_of_compartments + 2)
+        q_init = [0] * (self.model.num_periph + 2)
 
         Q = self.model.Q_P
-        V = self.model.V_P.append(V_C)
+        V = self.model.V_P
+        V.append(self.model.V_C)
 
-        sol = scipy.integrate.solve_ivp(lambda t, q: f(t, q, Q, V), t_span, q_init, t_eval=np.linspace(0, self.T, num=self.num_t))  # noqa
+        sol = scipy.integrate.solve_ivp(lambda t, q: f(t, q, Q, V), t_span, q_init, t_eval=np.linspace(0, self.T, num=self.num_T))  # noqa
 
         return sol
