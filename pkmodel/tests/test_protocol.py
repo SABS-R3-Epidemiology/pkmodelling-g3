@@ -11,20 +11,20 @@ class ProtocolTest(unittest.TestCase):
         """
         Tests Protocol creation.
         """
-        protocol = pk.Protocol('intravenous', 'instantaneous', [5], 1000,  T=[10])  # noqa
+        protocol = pk.Protocol('intravenous', 'instantaneous', [5],  T=[10])  # noqa
         self.assertAlmostEqual(protocol.create_dose_function(1), 0)
 
-        protocol = pk.Protocol('subcutaneous', 'continuous', 7, 1000, T=[10])
+        protocol = pk.Protocol('subcutaneous', 'continuous', 7, T=[10])
         self.assertAlmostEqual(protocol.create_dose_function(4), 7)
 
     def test_subcutaneous_comp_function(self):
         """
         Tests subcutaneous compartment function
         """
-        protocol = pk.Protocol('intravenous', 'instantaneous', [5], 1000, T=[10])  # noqa
+        protocol = pk.Protocol('intravenous', 'instantaneous', [5], T=[10])  # noqa
         self.assertAlmostEqual(protocol.create_subcutaneous_comp_function(0, 0.5), 0)  # noqa
 
-        protocol = pk.Protocol('subcutaneous', 'continuous', 7, 1000, T=[10], absorption_rate=0.7)  # noqa
+        protocol = pk.Protocol('subcutaneous', 'continuous', 7, T=[10], absorption_rate=0.7)  # noqa
         self.assertAlmostEqual(protocol.create_subcutaneous_comp_function(0, 0.5), 0.35)  # noqa
 
     def test_errors(self):
@@ -33,10 +33,10 @@ class ProtocolTest(unittest.TestCase):
         """
 
         with self.assertRaises(ValueError):
-            pk.Protocol('intravenous', 'instantaneous', [2, 5], 1000, T=[10])
+            pk.Protocol('intravenous', 'instantaneous', [2, 5], T=[10])
 
         with self.assertRaises(TypeError):
-            pk.Protocol('intravenous', 'continuous', [2], 1000)
+            pk.Protocol('intravenous', 'continuous', [2])
 
         with self.assertRaises(KeyError):
-            pk.Protocol('intravanous', 'continuous', 2, 1000)
+            pk.Protocol('intravanous', 'continuous', 2)
