@@ -20,19 +20,14 @@ class Protocol:
     T: list
         the time points when the drug is given
         only for instantaneous dosing
-    dose_period: numeric
-        the time period for continuous dosing
-        only for continuous dosing
     absorption_rate: numeric
         absorption rate for subcutaneous dosing. If dosing is intravenous, then not defined  # noqa
     """
-    def __init__(self, dosing_type, dosing_pattern, dose, T=None, dose_period=None, absorption_rate=None):  # noqa
+    def __init__(self, dosing_type, dosing_pattern, dose, T=None, absorption_rate=None):  # noqa
         self.dose, self.dosing_pattern, self.dosing_type,= dose, str(dosing_pattern), str(dosing_type),  # noqa
 
         if self.dosing_pattern == 'instantaneous':
             self.T = T
-            self.dose_period = None
-
             if type(dose) != list:
                 raise TypeError('Not correct format for dose, please use list')
             if type(T) != list:
@@ -42,7 +37,6 @@ class Protocol:
 
         elif self.dosing_pattern == 'continuous':
             self.T = None
-            self.dose_period = dose_period
             if type(dose) != float and type(dose) != int:
                 raise TypeError('Not correct format for dose, please use float')  # noqa
 
@@ -96,7 +90,7 @@ class Protocol:
                 dose_function.append(bump_fn(t, self.T[i], self.dose[i], sharpness, width))  # noqa
 
         elif self.dosing_pattern == 'continuous':
-            dose_function = self.dose
+            dose_function.append(self.dose)
 
             # for i in range(int(t_time/60)):
             #     dose_function.append(bump_fn(t,i,self.dose,sharpness,self.dose_period))
