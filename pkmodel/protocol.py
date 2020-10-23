@@ -58,7 +58,12 @@ class Protocol:
     def __call__(self):
         return [self.dose_function,self.subcutaneous_comp_function]
 
-    def bump_fn(d,t,a,s):
+    def bump_fn(t,d,a,s):
+        """ Smooth step function for the dose function
+
+        d,a,s describes the height, sharpness and width of the function respectively
+        
+        """
         return d / [1 + np.exp(a*(t-s))] - d / [1 + np.exp(a*(t-s-1))]
 
     @property
