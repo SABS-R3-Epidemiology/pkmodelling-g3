@@ -75,23 +75,21 @@ class Protocol:
         sharpness = 30
         # Defines the steepness of the step function
 
-        dose_function = lambda t: 0
+        dose_function = []
         if self.dosing_pattern == 'instantaneous':
         
             width = 0.1
             # Defines 
-            dose_function = lambda t: bump_fn(t,self.T[0],self.dose[0],sharpness,width)
-            # for i in range(len(self.T)):
-            #     d_f = lambda t: dose_function(t)
-            #     print(d_f)
-            #     dose_function = lambda t: bump_fn(t,self.T[i],self.dose[i],sharpness,width) + d_f(t)
+            #dose_function = lambda t: bump_fn(t,self.T[0],self.dose[0],sharpness,width)
+            for i in range(len(self.T)):
+                dose_function.append(bump_fn(t,self.T[i],self.dose[i],sharpness,width))
+            
         elif self.dosing_pattern == 'continuous':
-            dose_function = lambda t: self.dose
+            dose_function = self.dose
             # for i in range(int(t_time/60)):
-            #     d_f = lambda t: dose_function(t)
-            #     dose_function = lambda t: bump_fn(t,i,self.dose,sharpness,self.dose_period) + d_f(t)
+            #     dose_function.append(bump_fn(t,i,self.dose,sharpness,self.dose_period))
 
-        return dose_function(t)
+        return sum(dose_function)
             
 
     def create_subcutaneous_comp_function(self, t, q):
@@ -102,8 +100,8 @@ class Protocol:
 
         """
         if self.dosing_type == 'subcutaneous':
-            subcutaneous_comp_function = lambda t, q: self.absorption_rate*q
+            subcutaneous_comp_function = self.absorption_rate*q
         elif self.dosing_type == 'intravenous':
-            subcutaneous_comp_function = lambda t, q: self.create_dose_function(t)
+            subcutaneous_comp_function = self.create_dose_function(t)
 
-        return subcutaneous_comp_function(t, q)
+        return subcutaneous_comp_function
